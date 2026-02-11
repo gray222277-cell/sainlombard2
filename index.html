@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сайн Ломбард | Сайн сайхны төлөө</title>
+    <style>
+        html, body {
+        font-family: 'Inter', -apple-system, sans-serif;
+        /* Black base + very subtle yellow "film" */
+        background:
+              radial-gradient(1200px 800px at 12% 8%, rgba(255, 204, 0, 0.14), transparent 62%),
+              radial-gradient(900px 700px at 88% 22%, rgba(255, 204, 0, 0.12), transparent 58%),
+              radial-gradient(700px 500px at 55% 92%, rgba(255, 204, 0, 0.08), transparent 60%),
+              linear-gradient(180deg, rgba(255, 204, 0, 0.06), rgba(0,0,0,0) 45%),
+              var(--brand-black);
+        color: var(--white);
+        margin: 0;
+    }
+
+* {
+        box-sizing: border-box;
+    }
+        :root {
+            --brand-yellow: #ffcc00;
+
+            /* Dark base (хуучин хар фон үлдэнэ) */
+            --brand-black: #0b0b0b;
+            --panel-dark: rgba(17, 17, 17, 0.74);
+
+            /* Yellow "glass" overlay colors */
+            --glass-yellow: rgba(255, 204, 0, 0.18);
+            --glass-yellow-2: rgba(255, 204, 0, 0.12);
+            --glass-border: rgba(255, 204, 0, 0.34);
+
+            /* Text */
+            --white: #ffffff;
+            --text-grey: rgba(255, 255, 255, 0.72);
+        }
+
+* { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--brand-black); color: var(--white); overflow-x: hidden; }
+
+        /* HEADER */
+        header {
+            position: fixed; top: 0; width: 100%; padding: 20px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 1000; background: rgba(17, 17, 17, 0.9); backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .logo-wrap { display: flex; flex-direction: column; text-decoration: none; }
+        .logo-top { font-size: 1.7rem; font-weight: 900; line-height: 1; }
+        .logo-top .yellow { color: var(--brand-yellow); }
+        .logo-top .white { color: var(--white); }
+        .logo-bottom { 
+            font-size: 0.7rem; font-weight: 400; color: var(--text-grey);
+            text-align: right; margin-top: 4px; letter-spacing: 0.5px;
+        }
+
+        nav a {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 600;
+  opacity: 0.9;
+  position: relative;
+}
+nav a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-8px;
+  width:0%;
+  height:2px;
+  background: var(--brand-yellow);
+  box-shadow: 0 0 10px rgba(255,204,0,0.35);
+  transition: width .2s ease;
+}
+nav a:hover{ opacity:1; }
+nav a:hover::after{ width:100%; }
+
+        nav a:hover { color: var(--brand-yellow); opacity: 1; }
+
+        /* SECTIONS */
+        section { width: 100%; min-height: 100vh; position: relative; }
+
+        /* HERO */
+        #home { display: flex; align-items: center; justify-content: center; }
+        .hero-video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.4; }
+        .hero-content { position: relative; z-index: 2; text-align: center; }
+        .hero-content h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 900; line-height: 0.9; }
+
+        /* ABOUT */
+        #about {
+  display: flex;
+  align-items: center;
+  background:
+    radial-gradient(900px 500px at 20% 0%, rgba(255,204,0,0.10), transparent 55%),
+    rgba(10,10,10,0.85);
+  border-top: 1px solid rgba(255,204,0,0.10);
+  border-bottom: 1px solid rgba(255,204,0,0.10);
+}
+
+.container { max-width: 1200px; margin: 0 auto; width: 100%; }
+        .about-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px; align-items: center; }
+        .about-grid h2 { font-size: 3rem; line-height: 1.1; margin-bottom: 20px; }
+        .about-grid p { font-size: 1.2rem; color: var(--text-grey); }
+        
+        /* BRANCHES (Бүх салбар харуулах хэсэг) */
+        #branches { background: var(--brand-black); padding: 100px 50px 50px; }
+        .branches-layout { 
+            display: grid; grid-template-columns: 380px 1fr; gap: 20px; 
+            height: 70vh; margin-top: 30px; border-radius: 15px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        #list-container {
+   height: 520px;
+   overflow: auto;
+   padding: 14px;
+   border-radius: 18px;
+   background:
+     linear-gradient(180deg, rgba(255,204,0,0.06), rgba(0,0,0,0) 26%),
+     linear-gradient(180deg, var(--panel-dark), rgba(17,17,17,0.60));
+   border: 1px solid rgba(255,204,0,0.22);
+   box-shadow:
+     0 18px 50px rgba(0,0,0,0.35),
+     inset 0 0 0 1px rgba(255,255,255,0.05),
+     inset 0 0 28px rgba(255,204,0,0.10);
+   backdrop-filter: blur(14px);
+ }
+
+#list-container::-webkit-scrollbar { width: 4px; }
+        #list-container::-webkit-scrollbar-thumb { background: rgba(255,204,0,0.22); border-radius: 20px; }
+.item {
+   padding: 14px 14px;
+   border-radius: 14px;
+   cursor: pointer;
+   border: 1px solid rgba(255,255,255,0.06);
+   background:
+     linear-gradient(180deg, rgba(255,204,0,0.05), rgba(0,0,0,0) 40%),
+     rgba(255,255,255,0.02);
+   transition: background .14s ease, border-color .14s ease, transform .14s ease;
+ }
+
+.item:hover { background: rgba(255,204,0,0.14); border-color: rgba(255,204,0,0.30); transform: translateY(-1px); }
+.item.active { background: rgba(255,204,0,0.20); border-left: 3px solid var(--brand-yellow); border-color: rgba(255,204,0,0.36); }
+.item h4 { font-size: 0.95rem; margin-bottom: 5px; }
+        .item p { font-size: 0.75rem; color: var(--text-grey); line-height: 1.4; }
+
+        #map-box {
+   height: 520px;
+   border-radius: 18px;
+   background:
+     linear-gradient(180deg, rgba(255,204,0,0.06), rgba(0,0,0,0) 28%),
+     rgba(0,0,0,0.55);
+   border: 1px solid rgba(255,204,0,0.22);
+   box-shadow:
+     0 18px 50px rgba(0,0,0,0.32),
+     inset 0 0 0 1px rgba(255,255,255,0.05),
+     inset 0 0 28px rgba(255,204,0,0.08);
+   overflow: hidden;
+ }
+
+iframe { width: 100%; height: 100%; border: none; }
+
+        /* COMPACT CONTACT (Шинэ цэгцтэй хэсэг) */
+        .contact-footer {
+   background: linear-gradient(180deg, rgba(8,8,8,0.92), rgba(8,8,8,0.78));
+   border-top: 1px solid rgba(255,204,0,0.16);
+   padding-top: 44px;
+   padding-bottom: 28px;
+ }
+
+.contact-flex {
+            display: flex; justify-content: space-between; align-items: flex-start;
+            flex-wrap: wrap; gap: 40px;
+        }
+        .contact-col h5 { color: var(--brand-yellow); margin: 0 0 10px; }
+.contact-col p { font-size: 1rem; color: var(--white); opacity: 0.9; }
+        
+        .footer-bottom { padding-top: 16px; margin-top: 18px;
+ 
+            margin-top: 60px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.03);
+            text-align: center; color: #444; font-size: 0.75rem;
+        }
+
+        @media (max-width: 600px) {
+        header {
+            padding: 10px 5px;
+            flex-direction: column;
+            gap: 8px;
+            position: fixed; /* Цэсийг дээр нь түгжинэ */
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        nav a {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 600;
+  opacity: 0.9;
+  position: relative;
+}
+nav a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-8px;
+  width:0%;
+  height:2px;
+  background: var(--brand-yellow);
+  box-shadow: 0 0 10px rgba(255,204,0,0.35);
+  transition: width .2s ease;
+}
+nav a:hover{ opacity:1; }
+nav a:hover::after{ width:100%; }
+
+
+        /* Бидний тухай (Hero) хэсгийг цэсний доороос гаргах */
+        .hero {
+            padding-top: 140px !important; /* Дээрээс нь их зай авна */
+            min-height: auto;
+        }
+
+        .hero h1 {
+            font-size: 1.6rem !important;
+        }
+
+        /* Бүх контейнерыг дэлгэцийн өргөнд багтаах */
+        .gold-container, .branches-layout, .container {
+            width: 100% !important;
+            padding: 0 15px !important;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Салбарын жагсаалт ба газрын зургийг дээр дээрээс нь өрөх */
+        .branches-layout {
+            height: auto !important;
+        }
+
+        #list-container {
+   height: 520px;
+   overflow: auto;
+   padding: 14px;
+   border-radius: 18px;
+   background:
+     linear-gradient(180deg, rgba(255,204,0,0.06), rgba(0,0,0,0) 26%),
+     linear-gradient(180deg, var(--panel-dark), rgba(17,17,17,0.60));
+   border: 1px solid rgba(255,204,0,0.22);
+   box-shadow:
+     0 18px 50px rgba(0,0,0,0.35),
+     inset 0 0 0 1px rgba(255,255,255,0.05),
+     inset 0 0 28px rgba(255,204,0,0.10);
+   backdrop-filter: blur(14px);
+ }
+
+#map-box {
+   height: 520px;
+   border-radius: 18px;
+   background:
+     linear-gradient(180deg, rgba(255,204,0,0.06), rgba(0,0,0,0) 28%),
+     rgba(0,0,0,0.55);
+   border: 1px solid rgba(255,204,0,0.22);
+   box-shadow:
+     0 18px 50px rgba(0,0,0,0.32),
+     inset 0 0 0 1px rgba(255,255,255,0.05),
+     inset 0 0 28px rgba(255,204,0,0.08);
+   overflow: hidden;
+ }
+
+.gold-price {
+            font-size: 2rem !important;
+        }
+    }
+    
+
+/* SPACING_TYPO START */
+html { scroll-behavior: smooth; }
+body { line-height: 1.6; letter-spacing: 0.2px; }
+
+h1, h2, h3, h4, h5 { line-height: 1.18; margin: 0 0 12px; }
+p { margin: 0 0 12px; }
+
+section { padding: 84px 0; }
+#about { padding: 96px 0; }
+
+.container { width: min(1100px, 92%); margin: 0 auto; }
+
+.hero { padding-top: 110px; padding-bottom: 70px; }
+.hero .hero-content { gap: 22px; }
+
+#branches .section-head { margin-bottom: 18px; }
+#branches .layout { gap: 18px; }
+
+@media (max-width: 900px){
+  section { padding: 64px 0; }
+  #about { padding: 72px 0; }
+  .hero { padding-top: 96px; padding-bottom: 56px; }
+  #branches .layout { gap: 14px; }
+}
+/* SPACING_TYPO END */
+
+
+/* NAV_SPACING START */
+.header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display:flex;
+  align-items:center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 14px 22px;
+  background: linear-gradient(180deg, rgba(17,17,17,0.88), rgba(17,17,17,0.72));
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 204, 0, 0.22);
+}
+
+/* logo click area */
+.logo-wrap{ text-decoration:none; padding: 6px 8px; border-radius: 12px; }
+.logo-wrap:hover{ background: rgba(255,204,0,0.10); border: 1px solid rgba(255,204,0,0.16); }
+
+.header nav{
+  display:flex;
+  align-items:center;
+  gap: 24px;              /* цэс хоорондын зай (өндийсөн) */
+}
+
+.header nav a{
+  color: var(--white);
+  text-decoration:none;
+  font-weight: 700;
+  opacity: 0.92;
+  padding: 10px 12px;     /* товших талбай */
+  border-radius: 12px;
+  border: 1px solid transparent;
+}
+
+.header nav a:hover{
+  opacity: 1;
+  background: rgba(255,204,0,0.12);
+  border-color: rgba(255,204,0,0.22);
+  box-shadow: 0 0 16px rgba(255,204,0,0.14);
+}
+
+/* Gold pill */
+.gold-pill{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(255,204,0,0.12), rgba(0,0,0,0) 45%),
+    rgba(17,17,17,0.62);
+  border: 1px solid rgba(255,204,0,0.28);
+  box-shadow:
+    inset 0 0 22px rgba(255,204,0,0.12),
+    0 12px 34px rgba(0,0,0,0.22);
+  backdrop-filter: blur(14px);
+  color: var(--white);
+  white-space: nowrap;
+}
+.gold-pill .label{ font-size: 12px; opacity: 0.9; }
+.gold-pill .value{ font-weight: 900; }
+.gold-pill .meta{ font-size: 11px; opacity: 0.75; }
+
+@media (max-width: 900px){
+  .header{ padding: 12px 14px; gap: 10px; }
+  .header nav{ gap: 10px; }
+  .header nav a{ padding: 8px 8px; font-size: 14px; }
+  .gold-pill{ display:none; } /* жижиг дэлгэц дээр зай хэмнэнэ */
+}
+/* NAV_SPACING END */
+
+body{ padding-top: 86px; }
+@media (max-width: 900px){ body{ padding-top: 78px; } }
+
+
+
+/* GOLD_IFRAME START */
+.gold-pill{
+  padding: 8px;
+  border-radius: 16px;
+}
+.gold-pill iframe{
+  display:block;
+  border-radius: 12px;
+  filter: saturate(1.05) contrast(1.02);
+}
+/* GOLD_IFRAME END */
+
+
+/* GOLD_IFRAME START */
+.gold-pill{
+  padding: 8px;
+  border-radius: 16px;
+  min-width: 320px;
+}
+.gold-pill iframe{
+  display:block;
+  width: 320px;
+  height: 120px;
+  border-radius: 12px;
+}
+/* GOLD_IFRAME END */
+</style>
+</head>
+<body>
+
+    <header class="header">
+        <a href="#" class="logo-wrap">
+            <div class="logo-top"><span class="yellow">САЙН</span> <span class="white">ЛОМБАРД</span></div>
+            <div class="logo-bottom">сайн сайхны төлөө</div>
+        </a>
+        <nav>
+            <a href="#about">Бидний тухай</a>
+            <a href="#branches">Салбарууд</a>
+            <a href="#contact">Холбоо барих</a>
+        </nav>
+<div class="gold-pill" title="Алтны үнэ (Монголбанк)"><iframe src="https://www.mongolbank.mn/mn/gold-and-silver-price" width="320" height="120" style="border:0;overflow:hidden;border-radius:12px;" loading="lazy"></iframe></div>
+    </header>
+
+    <section id="home">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="video.mp4" type="video/mp4">
+        </video>
+        <div class="hero-content">
+            <h1>ТАНЫ САНХҮҮГИЙН ИТГЭЛТ <br><span style="color:var(--brand-yellow)">ТҮНШ</span></h1>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container about-grid">
+            <div>
+                <p style="color:var(--brand-yellow); font-size:0.8rem; letter-spacing:2px; margin-bottom:10px;">SINCE 1999</p>
+                <h2>25 жилийн <br>түүхэн замнал</h2>
+            </div>
+            <p>
+                Бид 1999 оноос хойш барьцаалан зээлдүүлэх үйлчилгээний салбарт "Сайн Ломбард" нэртэйгээр тасралтгүй үйл ажиллагаа явуулж байна. Өдгөө нийт 59 салбартайгаар харилцагч таны санхүүгийн хэрэгцээг хамгийн түргэн шуурхай, найдвартай шийдвэрлэхийг зорин ажиллаж байна.
+            </p>
+        </div>
+    </section>
+
+    <section id="branches">
+        <div class="container">
+            <h2 style="font-size: 2.5rem;">Салбарууд</h2>
+            <p style="color:var(--text-grey); margin-bottom: 20px;">Нийт 59 байршил. Салбар дээр дарж байршлыг харна уу.</p>
+            <div class="branches-layout">
+                <div id="list-container"></div>
+                <div id="map-box">
+                    <iframe id="main-map"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="contact" class="contact-footer">
+        <div class="container contact-flex">
+            <div class="contact-col">
+                <h5>Төв оффис</h5>
+                <p>Улаанбаатар хот, СБД, <br>1-р хороо, Соёолж моллын эсрэг талд <br>AIR CHINA-тай барилга-ын 12 давхар </p>
+            </div>
+            <div class="contact-col">
+                <h5>Харилцах дугаар</h5>
+                <p>+976 9966 6666</p>
+                <p>+976 7575 3232</p>
+            </div>
+            <div class="contact-col">
+                <h5>Цахим хаяг</h5>
+                <p>info@sainlombard.mn</p>
+            </div>
+            <div class="contact-col">
+                <h5>Цагийн хуваарь</h5>
+                <p>Даваа - Ням: 08:00 - 19:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 САЙН ЛОМБАРД. Сайн сайхны төлөө.
+        </div>
+    </div>
+
+    <script>
+        // Файлаас боловсруулсан бүх 59 салбарын дата
+        const branches = [
+            {"name": "Цайз 16", "addr": "Цайз 16-ын автобусны урд буудал, 40-р хороо, БЗД", "lat": 47.92323833, "lng": 106.982743},
+            {"name": "Түмэн плаза", "addr": "Түмэн плаза, 14-р хороо, БГД", "lat": 47.92313225, "lng": 106.8799634},
+            {"name": "Соёолж молл", "addr": "Соёолж моллын замын хойно, 1-р хороо, СБД", "lat": 47.90842728, "lng": 106.9295333},
+            {"name": "Хорооллын E-mart", "addr": "Хорооллын E-mart, 13-р хороо, БГД", "lat": 47.92271166, "lng": 106.8670593},
+            {"name": "Цайз зах", "addr": "Цайз захын уулзварын зүүн урд, 40-р хороо, БЗД", "lat": 47.92348454, "lng": 106.9746508},
+            {"name": "Хайлааст", "addr": "Хайлааст, 13-р хороо, ЧД", "lat": 47.94823884, "lng": 106.9135701},
+            {"name": "City palace", "addr": "City palace-ын 1 давхарт , 4-р хороо, ХУД", "lat": 47.8719254, "lng": 106.8319948},
+            {"name": "Магма төв", "addr": "Магма төвын урд , 16-р хороо, БЗД", "lat": 47.91697391, "lng": 106.9738783},
+            {"name": "10-р хороолол", "addr": "10-р хорооллын урд автобусны буудал, 25-р хороо, БГД", "lat": 47.91329943, "lng": 106.8680222},
+            {"name": "Соёмбо зах", "addr": "Соёмбо захын 1 давхарт, 16-р хороо, СБД", "lat": 47.98014287, "lng": 106.9384396},
+            {"name": "Гэмтлийн эмнэлэг", "addr": "Гэмлийн хойд автобусны буудал, 21-р хороо, БГД", "lat": 47.92148151, "lng": 106.8572307},
+            {"name": "Богд ар БСБ", "addr": "Богд ар-ын БСБ-тэй байр, 1-р хороо, БГД", "lat": 47.91431336, "lng": 106.8859072},
+            {"name": "Драгон төв", "addr": "Драгон төвийн баруун талд, 29-р хороо, СХД", "lat": 47.91066925, "lng": 106.8196164},
+            {"name": "Монгол 3", "addr": "Монгол 3ын хойд автобусны буудал, 10-р хороо, СБД", "lat": 47.92941478, "lng": 106.9180441},
+            {"name": "Жуков", "addr": "Жуков автобусны буудал, 4-р хороо, БЗД", "lat": 47.91831406, "lng": 106.9489418},
+            {"name": "Кино үйлдвэр", "addr": "Кино үйлдвэр автобусны буудал, 5-р хороо, БЗД", "lat": 47.9173074, "lng": 106.9596827},
+            {"name": "Тумбааш төв", "addr": "Тумбааш төвийн 1 давхарт, 40-р хороо, СХД", "lat": 47.95364976, "lng": 106.8258083},
+            {"name": "Маршал таун", "addr": "Маршал таун хотхон 103 байр, 17 хороо, ХУД", "lat": 47.89467656, "lng": 106.9342728},
+            {"name": "Akoya mall", "addr": "Akoya mall, 18-р хороо, ХУД", "lat": 47.89948359, "lng": 106.9273125},
+            {"name": "Peace Tower", "addr": "Peace Tower-ийн зүүн талд, 3-р хороо, ЧД", "lat": 47.91618836, "lng": 106.9029875},
+            {"name": "Жанцан", "addr": "Жанцангийн уулзвар, 28-р хороо, СХД", "lat": 47.95554218, "lng": 106.8409721},
+            {"name": "21-р хороолол", "addr": "21-р хорооллын автобусны буудал, 19-р хороо, СХД", "lat": 47.92025748, "lng": 106.8166129},
+            {"name": "Сансар ШТС", "addr": "Сансарын ШТС автобусны буудлын хойно, 2-р хороо, БЗД", "lat": 47.9288208, "lng": 106.9377677},
+            {"name": "Их Монгол хороолол", "addr": "Их монгол хорооллын автобусны буудал, 36-р хороо, БЗД", "lat": 47.90643151, "lng": 106.943049},
+            {"name": "120 мянгат", "addr": "19-ын автобусны буудлын урд, 19-р хороо, ХУД", "lat": 47.89867617, "lng": 106.8982105},
+            {"name": "Хархорин", "addr": "Хархорин автобусны буудлын урд, 29-р хороо, БГД", "lat": 47.91125176, "lng": 106.8401568},
+            {"name": "Урт цагаан", "addr": "Хуучнаар урт цагааны зүүн талд, 1-р хороо, ЧД", "lat": 47.92010891, "lng": 106.9066675},
+            {"name": "Зоос гоёл", "addr": "Зоос гоёлын замын эсрэг талд, 4-р хороо, ЧД", "lat": 47.92294532, "lng": 106.9103689},
+            {"name": "Budda vista", "addr": "Budda vista хотхон, 11-р хороо, ХУД", "lat": 47.88727029, "lng": 106.9112058},
+            {"name": "New town хотхон", "addr": "New town хотхон, 19-р хороо, БЗД", "lat": 47.92398964, "lng": 106.9840895},
+            {"name": "New garden хотхон", "addr": "New garden хотхоны 1-р давхарт, 24-р хороо, ХУД", "lat": 47.87754579, "lng": 106.8528195},
+            {"name": "Зурагт", "addr": "Зурагтын хуучин эцэс, 11-р хороо, БГД", "lat": 47.93155692, "lng": 106.8875205},
+            {"name": "Нар хүүхдийн дэлгүүр", "addr": "Нар хүүхдийн дэлгүүрийн зүүн талд, 19-р хороо, БГД", "lat": 47.9226164, "lng": 106.8811355},
+            {"name": "Шөнийн зах", "addr": "Шөнийн захын 1-р давхарт, 42-р хороо, БЗД", "lat": 47.90909969, "lng": 106.9437464},
+            {"name": "Гандирс", "addr": "Гандирсын замын эсрэг талд, 3-р хороо, ЧД", "lat": 47.91893691, "lng": 106.906292},
+            {"name": "Хүлэг зах (Эрдэнэт)", "addr": "Хүлэг захын замын эсрэг талд, Эрдэнэт хот", "lat": 49.02678126, "lng": 104.0452496},
+            {"name": "Дархан", "addr": "2-р эмнэлэгийн хойно, Хуучин дархан, Дархан хот", "lat": 49.48697453, "lng": 105.9405919},
+            {"name": "Хайлааст эцэс", "addr": "Хайлаастын эцсийн буудал, 15-р хороо, ЧД", "lat": 47.96151094, "lng": 106.8965971},
+            {"name": "Сансар нүхэн гарц", "addr": "Сансарын нүхэн гарцны зүүн талд, 7-р хороо, БЗД", "lat": 47.92416756, "lng": 106.9423623},
+            {"name": "Wellmart", "addr": "Wellmart худалдааны төв, 12-р хороо, БЗД", "lat": 47.91222794, "lng": 107.0008613},
+            {"name": "Carrefour", "addr": "Carrefour дэлгүүрийн баруун талд, 18-р хороо, БЗД", "lat": 47.91283543, "lng": 106.9412979},
+            {"name": "Шархад", "addr": "Шархадны эцсийн буудал, 9-р хороо, БЗД", "lat": 47.93490853, "lng": 107.0055029},
+            {"name": "Бөхийн өргөө", "addr": "Бөхийн өргөөгийн урд автобусны буудал, 6-р хороо, БЗД", "lat": 47.91823046, "lng": 106.9339858},
+            {"name": "Саппоро Миний дэлгүүр", "addr": "Саппорогийн миний дэлгүүр, 12-р хороо, СХД", "lat": 47.91316279, "lng": 106.8533184},
+            {"name": "10-р хорооллын EFES төв", "addr": "EFES худалдааны төв, 6-р хороо, БГД", "lat": 47.91453628, "lng": 106.8710236},
+            {"name": "Хороолол 11-р байр", "addr": "Хорооллын 11-р байрны 1-р давхарт, 32-р хороо, БГД", "lat": 47.92199808, "lng": 106.868405},
+            {"name": "Асайт төв", "addr": "Асайт худалдааны төв, 32-р хороо, БЗД", "lat": 47.92483439, "lng": 106.9701795},
+            {"name": "7 буудал", "addr": "7 буудалын эцэс, 18-р хороо, ЧД", "lat": 47.96863551, "lng": 106.9169806},
+            {"name": "Сод Монгол ШТС", "addr": "Сод монгол штс-ын замын хойно, 25-р хороо, БГД", "lat": 47.8566319, "lng": 106.7801071},
+            {"name": "Баянмонгол хороолол", "addr": "Баянмонгол хорооллын баруун урд, 36-р хороо, БЗД", "lat": 47.90461163, "lng": 106.9321636},
+            {"name": "Хазара ресторан", "addr": "Хазара рестораны замын зүүн талд, 6-р хороо, БЗД", "lat": 47.91749874, "lng": 106.9357826},
+            {"name": "Модны 2", "addr": "Модны 2-ын автобусны буудал, 17-р хороо, БГД", "lat": 47.91891714, "lng": 106.890475},
+            {"name": "11-р сургууль", "addr": "11р сургуулийн урд автобусны буудал, 3-р хороо, СБД", "lat": 47.91523992, "lng": 106.8979096},
+            {"name": "EST төв", "addr": "EST төв, 16-р хороо, СХД", "lat": 47.91244967, "lng": 106.8379251},
+            {"name": "Соёмбо принтинг", "addr": "Соёмбо принтингийн замын эсрэг талд, 34-р хороо, БГД", "lat": 47.92705088, "lng": 106.8770035},
+            {"name": "Улаанхуаран", "addr": "Улаанхуарангийн автобусны буудал, 16-р хороо, БЗД", "lat": 47.91878204, "lng": 106.984846},
+            {"name": "Royal Plaza (26-р хороо)", "addr": "Park od mall Royal plaza 1 давхарт. 26-р хороо, БЗД", "lat": 47.9022166, "lng": 106.9385935},
+            {"name": "Халдвартын эцэс", "addr": "Халдвартын эцсийн буудал, 14-р хороо, БЗД", "lat": 47.91283561, "lng": 106.9480593},
+            {"name": "Дэнжийн 1000", "addr": "Дэнжийн 1000-ын захын зүүн автобусны буудал, 12-р хороо, ЧД", "lat": 47.94546849, "lng": 106.9014948}
+        ];
+
+        // Жишээ болгож эхний 10-ыг бичсэн бөгөөд 59 салбарыг жагсаахад бэлэн.
+        const container = document.getElementById('list-container');
+        const map = document.getElementById('main-map');
+
+        function setMap(lat, lng) {
+            map.src = `https://maps.google.com/maps?q=${lat},${lng}&z=16&output=embed`;
+        }
+
+        branches.forEach((b, i) => {
+            const div = document.createElement('div');
+            div.className = 'item' + (i === 0 ? ' active' : '');
+            div.innerHTML = `<h4>${b.name}</h4><p>${b.addr}</p>`;
+            div.onclick = () => {
+                document.querySelectorAll('.item').forEach(el => el.classList.remove('active'));
+                div.classList.add('active');
+                setMap(b.lat, b.lng);
+            };
+            container.appendChild(div);
+        });
+
+        // Анхдагч байршил
+        setMap(branches[0].lat, branches[0].lng);
+    </script>
+</body>
+
+</html>
+
+
